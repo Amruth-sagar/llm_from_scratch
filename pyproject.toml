@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "llm_from_scratch"
+version = "0.1.0"
+readme = "README.md"
+requires-python = ">=3.13"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+
+dependencies = [
+    "numpy>=2.1.0",      
+    "pandas>=2.2.3",
+    "pyarrow>=18.0.0",
+    "tqdm>=4.66.0",
+    "faker>=30.0.0",
+    "regex>=2024.9.11",
+    "tensorboard>=2.16.0"
+]
+
+[project.optional-dependencies]
+# Install these using: pip install -e ".[jupyter]"
+jupyter = [
+    "ipykernel>=6.29.0",
+    "jupyterlab>=4.3.0",
+    "ipywidgets>=8.1.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["llm_from_scratch*"]
