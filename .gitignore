@@ -6,6 +6,11 @@ __pycache__/
 # Any file with 'nogit' in its name
 *nogit*
 
+# Ignoring other file extensions
+*.pkl
+*.npz
+*.pth
+
 # C extensions
 *.so
 

@@ -49,7 +49,7 @@ The fine-tuned model can:
 - Perform simple translation when prompted (e.g., prefix with  
   `"Translating from hindi to english"` or vice versa)  
 
-*While this is a proof-of-concept model, it produces coherent, grammatically correct responses and can sometimes generate surprisingly accurate answers.*
+*Despite its compact 160M parameter scale, the model generates coherent, well-structured outputs and exhibits emerging semantic understanding*
 
 Pretrained tokenizer states, model checkpoints, and SFT checkpoints are available [here (G-drive)](https://drive.google.com/drive/folders/1fm_sqBZgxeiyqiBDQyKpqTw_IAW0zhpe?usp=sharing).
 
@@ -320,3 +320,42 @@ python trainsft.py \
 Notes: `--load_ckpt` should point to the best pretrained checkpoint. A lower learning rate (e.g., 1e-5) is recommended for fine-tuning.Validation runs periodically to monitor instruction-following performance.
 
 After completion, you will have a bilingual GPT model capable of conversational responses in both Hindi and English!
+
+## :package: Miscellaneous Utilities
+Some auxiliary scripts are not documented in detail here to keep the README concise. The codebase is intentionally structured to be straightforward and self-explanatory. Readers are encouraged to explore and run these utilities directly.
+
+- `llm_from_scratch/data/validate_tokenized_data.py` verifies that the generated `.bin` files are correctly constructed and ensures alignment between document offsets, lengths in metadata, and the underlying binary data.
+- `llm_from_scratch/tokenizer/tokenizer_eval.py` Evaluates tokenizer integrity by performing round-trip checks
+
+```
+document ----encode---->  tokens  ----decode----> document
+```
+It allows selecting:
+- A specific parquet file
+- A target language
+- A configurable number of rows
+
+The script outputs a JSON report containing tokenizer statistics and any round-trip mismatches, for example:
+
+```
+{ "language": "eng",
+  "num_samples": 10000,
+  "metrics": {
+    "avg_tokens_per_word": 1.3836537860492968,
+    "num_round_trip_failures": 3
+  },
+  "failure_examples": [
+    {
+      "index": 5606,
+      "original": "Biblical Commentary ..."
+    },
+    ...
+  ]
+} 
+```
+These utilities are designed to make data validation and tokenizer diagnostics transparent and reproducible.
+
+---
+If you find this project useful, consider giving it a ⭐!
+
+---
