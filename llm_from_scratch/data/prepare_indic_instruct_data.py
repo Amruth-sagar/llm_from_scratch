@@ -49,7 +49,7 @@ def get_conv_flan_v2(row):
 def get_translations_nmt_seed(row):
     input_text, output_text = row.input_text, row.output_text
     english_to_hindi = f"<user>Translate from english to hindi: {input_text}<assistant>{output_text}"
-    hindi_to_english = f"<user>Translate from hindi to english: {output_text}<assistant>{output_text}"
+    hindi_to_english = f"<user>Translate from hindi to english: {output_text}<assistant>{input_text}"
     return [english_to_hindi, hindi_to_english]
 
 
