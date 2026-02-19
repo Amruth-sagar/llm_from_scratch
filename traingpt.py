@@ -222,8 +222,6 @@ def main():
 
             optimizer_steps += 1
 
-        global_step += 1
-
         if optimizer_steps > 0 and optimizer_steps % args.val_after_k_optim_steps == 0:
             
             model.eval()
@@ -260,6 +258,8 @@ def main():
                 checkpoint_name = f"GPTwithRoPE_step_{global_step+1}_time_" + datetime.now().strftime("%Y%m%d_%H%M%S")
                 save_checkpoint(checkpoint_name, args.ckpt_dir, model, optimizer, optimizer_steps, scaler, global_step, prev_val_loss, args, GPT_CFG)
             dist.barrier()
+        
+        global_step += 1
 
     cleanup_distributed()
     if rank == 0:

@@ -149,18 +149,11 @@ def main():
 
             train_loss = loss.detach()
 
-            # TODO: Remove LATER
-            if torch.isnan(train_loss):
-                raise SystemExit
-
             writer.add_scalar("loss/train", train_loss, global_step+1)
             
             torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
             optimizer.step()
             optimizer.zero_grad(set_to_none=True)
-
-
-            global_step += 1
 
             if (global_step + 1) % args.val_every_k_steps == 0:
                 
@@ -189,7 +182,9 @@ def main():
             if (global_step + 1) % args.save_ckpt_after_k_steps == 0:
                 checkpoint_name = f"SFT_GPTwithRoPE_step_{global_step+1}_time_" + datetime.now().strftime("%Y%m%d_%H%M%S")
                 save_checkpoint(checkpoint_name, args.ckpt_dir, model, optimizer, global_step, prev_val_loss, args, GPT_CFG)
-
+            
+            global_step += 1
+    
     writer.close()
 
 
