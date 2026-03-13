@@ -66,7 +66,8 @@ You can explore the model interactively via `demo.ipynb`.
 
 1. **Create a virtual environment**:  Create a virtual environment 
 ```
-> conda create -n lfs python=3.13
+conda create -n lfs python=3.13
+conda activate lfs
 ```
 
 2. **Instally PyTorch with CUDA**:  For windows and linux
@@ -80,7 +81,7 @@ pip3 install torch torchvision
 
 3. **Clone this repo and install the dependencies**
 ```
-git clone 
+git clone https://github.com/Amruth-sagar/llm_from_scratch.git
 cd llm_from_scratch
 pip install -e .
 ```
